@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wj.cn.mapper.DoorMapper">
+	
+    <!-- 添加门店信息 -->
+	<insert id="addDoor" parameterType="Door">
+	    insert into tb_door(id,doorName,tel,createTime,updateTime)
+	    	values(null,#{doorName},#{tel},now(),now())
+	</insert>
+	
+	<!-- 查询门店信息 -->
+	<select id="findAllDoorInfo" resultType="Door">
+		select * from tb_door
+	</select>
+	
+	<!-- 查询一个门店 -->
+	<select id="SelectOne"
+			resultType="Door">
+		select * from tb_door 
+		where id=#{id}
+	</select>
+	
+	
+	<!-- 修改门店 now()获取当前时间-->
+	<update id="update">
+		update tb_door set 
+			doorName=#{doorName},
+			tel=#{tel},
+			createTime=now(),
+			updateTime=now()
+		where id=#{id}
+	</update>
+	
+	<!-- 删除门店 -->
+	<delete id="delete">
+		delete from tb_door 
+		where id=#{id}
+	</delete>
+	
+	
+
+	
+
+</mapper>

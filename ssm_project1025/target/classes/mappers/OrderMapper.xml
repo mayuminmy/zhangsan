@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wj.cn.mapper.OrderMapper">
+	
+    
+    <!-- 映射不规则字段 
+		type：要把数据封装给哪个对象
+		id：该resultMap的唯一标志
+	-->
+	<resultMap type="Order" 
+				id="OrderRM">
+		
+<!-- id属性 column是字段名  property是属性名-->	
+		<id column="id" property="id"/>
+		
+<!-- 其他属性 column是字段名  property是属性名-->			
+		<result column="door_id" property="doorId"/>		
+		<result column="order_no" property="orderNo"/>		
+		<result column="order_type" property="orderType"/>		
+		<result column="person_num" property="personNum"/>		
+		<result column="cashier" property="cashier"/>		
+		<result column="create_time" property="createdTime"/>		
+		<result column="end_time" property="endTime"/>		
+		<result column="payment_type" property="paymentType"/>		
+		<result column="price" property="price"/>		
+		<result column="createTime" property="createTime"/>		
+		<result column="updateTime" property="updateTime"/>		
+	</resultMap>
+    
+	
+	<!-- 查询所有订单信息 -->
+	<select id="findAllOrder" resultType="Order" resultMap="OrderRM">
+	    select * from tb_order
+	</select>
+	
+	<!--添加订单信息  -->
+	<insert id="addOrder" parameterType="Order">
+	    insert into tb_order
+	    	values(#{id},#{doorId},#{orderNo},#{orderType},#{personNum},#{cashier},#{createdTime},#{endTime},#{paymentType},#{price},now(),now())
+	</insert>
+	
+	<!-- 查询一个订单 -->
+	<select id="SelectOneOrder"
+			resultType="Order" resultMap="OrderRM">
+		select * from tb_order 
+		where id=#{id}
+	</select>
+	
+	<!-- 修改订单 now()获取当前时间-->
+	<update id="update">
+		update tb_order set 
+			door_id=#{doorId},
+			order_no=#{orderNo},
+			order_type=#{orderType},
+			person_num=#{personNum},
+			cashier=#{cashier},
+			create_time=#{createdTime},
+			end_time=#{endTime},
+			payment_type=#{paymentType},
+			price=#{price},
+			createTime=now(),
+			updateTime=now()
+		where id=#{id}
+	</update>
+	
+	<!-- 删除订单 -->
+	<delete id="delete">
+		delete from tb_order 
+		where id=#{id}
+	</delete>
+
+</mapper>
